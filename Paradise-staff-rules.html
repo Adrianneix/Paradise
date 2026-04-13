@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Rules — Paradise</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f5ead8;
+    --beige-light: #fdf6ec;
+    --beige-dark: #d9c9a8;
+    --purple: #6b3fa0;
+    --purple-light: #9b6fd4;
+    --purple-dark: #3d1f6b;
+    --purple-glow: rgba(107, 63, 160, 0.4);
+    --green: #4a8c5c;
+    --green-light: #7ec89a;
+    --green-dark: #2d5e3a;
+    --blue: #3a7abf;
+    --blue-light: #7ab8f5;
+    --blue-dark: #1a4a80;
+    --teal: #2a9d8f;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #0d0820;
+min-height: 100vh;
+font-family: ‘Crimson Pro’, serif;
+overflow-x: hidden;
+position: relative;
+}
+
+/* Animated background */
+.bg-layer {
+position: fixed; inset: 0; z-index: 0;
+background: radial-gradient(ellipse at 20% 20%, rgba(107,63,160,0.25) 0%, transparent 50%),
+radial-gradient(ellipse at 80% 80%, rgba(42,157,143,0.2) 0%, transparent 50%),
+radial-gradient(ellipse at 50% 50%, rgba(58,122,191,0.15) 0%, transparent 70%),
+linear-gradient(135deg, #0d0820 0%, #13102e 50%, #0a1a12 100%);
+}
+
+/* Floating particles */
+.particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+.particle {
+position: absolute;
+border-radius: 50%;
+animation: float-particle linear infinite;
+opacity: 0;
+}
+
+@keyframes float-particle {
+0% { transform: translateY(100vh) scale(0); opacity: 0; }
+10% { opacity: 1; }
+90% { opacity: 0.6; }
+100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* Decorative vines/leaves SVG overlay */
+.corner-decor {
+position: fixed; z-index: 2; pointer-events: none;
+opacity: 0.18;
+}
+.corner-tl { top: 0; left: 0; }
+.corner-br { bottom: 0; right: 0; transform: rotate(180deg); }
+
+/* Main container */
+.container {
+position: relative; z-index: 10;
+max-width: 900px;
+margin: 0 auto;
+padding: 60px 24px 80px;
+}
+
+/* Header */
+.header {
+text-align: center;
+margin-bottom: 56px;
+animation: header-reveal 1.2s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes header-reveal {
+from { opacity: 0; transform: translateY(-40px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.paradise-badge {
+display: inline-block;
+padding: 6px 28px;
+border: 1px solid var(–green-light);
+border-radius: 40px;
+color: var(–green-light);
+font-family: ‘Space Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.35em;
+text-transform: uppercase;
+margin-bottom: 20px;
+position: relative;
+overflow: hidden;
+}
+.paradise-badge::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: linear-gradient(90deg, transparent, rgba(126,200,154,0.15), transparent);
+animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+0%,100% { transform: translateX(-100%); }
+50% { transform: translateX(100%); }
+}
+
+.main-title {
+font-family: ‘Cinzel Decorative’, cursive;
+font-size: clamp(2.2rem, 6vw, 3.8rem);
+font-weight: 900;
+background: linear-gradient(135deg, var(–beige-light) 0%, var(–purple-light) 40%, var(–blue-light) 70%, var(–green-light) 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+line-height: 1.1;
+filter: drop-shadow(0 0 30px rgba(155,111,212,0.5));
+}
+
+.subtitle {
+margin-top: 14px;
+color: var(–beige-dark);
+font-size: 1.05rem;
+font-style: italic;
+letter-spacing: 0.05em;
+opacity: 0.8;
+}
+
+.header-divider {
+margin: 24px auto 0;
+width: 200px;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–purple-light), var(–teal), transparent);
+position: relative;
+}
+.header-divider::before {
+content: ‘❧’;
+position: absolute;
+top: -10px; left: 50%; transform: translateX(-50%);
+color: var(–green-light);
+font-size: 1.1rem;
+}
+
+/* Category cards */
+.categories {
+display: grid;
+gap: 28px;
+}
+
+.category-card {
+border-radius: 20px;
+position: relative;
+overflow: hidden;
+animation: card-in 0.8s cubic-bezier(.16,1,.3,1) both;
+transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
+}
+
+.category-card:hover {
+transform: translateY(-4px) scale(1.01);
+}
+
+@keyframes card-in {
+from { opacity: 0; transform: translateY(30px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.category-card:nth-child(1) { animation-delay: 0.15s; }
+.category-card:nth-child(2) { animation-delay: 0.28s; }
+.category-card:nth-child(3) { animation-delay: 0.41s; }
+.category-card:nth-child(4) { animation-delay: 0.54s; }
+.category-card:nth-child(5) { animation-delay: 0.67s; }
+.category-card:nth-child(6) { animation-delay: 0.80s; }
+.category-card:nth-child(7) { animation-delay: 0.93s; }
+
+.card-bg {
+position: absolute; inset: 0;
+backdrop-filter: blur(12px);
+}
+
+/* Card themes */
+.card-purple .card-bg {
+background: linear-gradient(135deg, rgba(61,31,107,0.7) 0%, rgba(107,63,160,0.4) 100%);
+border: 1px solid rgba(155,111,212,0.3);
+box-shadow: 0 8px 40px rgba(107,63,160,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.card-purple:hover { box-shadow: 0 20px 60px rgba(107,63,160,0.5); }
+
+.card-green .card-bg {
+background: linear-gradient(135deg, rgba(29,58,38,0.7) 0%, rgba(74,140,92,0.35) 100%);
+border: 1px solid rgba(126,200,154,0.25);
+box-shadow: 0 8px 40px rgba(74,140,92,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.card-green:hover { box-shadow: 0 20px 60px rgba(74,140,92,0.4); }
+
+.card-blue .card-bg {
+background: linear-gradient(135deg, rgba(20,50,90,0.7) 0%, rgba(58,122,191,0.35) 100%);
+border: 1px solid rgba(122,184,245,0.25);
+box-shadow: 0 8px 40px rgba(58,122,191,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.card-blue:hover { box-shadow: 0 20px 60px rgba(58,122,191,0.4); }
+
+.card-teal .card-bg {
+background: linear-gradient(135deg, rgba(15,55,50,0.7) 0%, rgba(42,157,143,0.35) 100%);
+border: 1px solid rgba(42,157,143,0.3);
+box-shadow: 0 8px 40px rgba(42,157,143,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.card-teal:hover { box-shadow: 0 20px 60px rgba(42,157,143,0.4); }
+
+.card-content {
+position: relative; z-index: 2;
+padding: 28px 32px 30px;
+}
+
+.card-header {
+display: flex;
+align-items: center;
+gap: 14px;
+margin-bottom: 20px;
+}
+
+.card-icon {
+width: 48px; height: 48px;
+border-radius: 14px;
+display: flex; align-items: center; justify-content: center;
+font-size: 1.4rem;
+flex-shrink: 0;
+position: relative;
+overflow: hidden;
+}
+
+.card-purple .card-icon { background: rgba(155,111,212,0.25); border: 1px solid rgba(155,111,212,0.4); }
+.card-green  .card-icon { background: rgba(126,200,154,0.2);  border: 1px solid rgba(126,200,154,0.35); }
+.card-blue   .card-icon { background: rgba(122,184,245,0.2);  border: 1px solid rgba(122,184,245,0.35); }
+.card-teal   .card-icon { background: rgba(42,157,143,0.2);   border: 1px solid rgba(42,157,143,0.4); }
+
+.card-icon::after {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent);
+animation: icon-pulse 3s ease-in-out infinite;
+}
+@keyframes icon-pulse {
+0%,100% { opacity: 0.5; transform: scale(1); }
+50% { opacity: 1; transform: scale(1.1); }
+}
+
+.card-title {
+font-family: ‘Cinzel Decorative’, cursive;
+font-size: 1rem;
+font-weight: 700;
+letter-spacing: 0.04em;
+}
+.card-purple .card-title { color: #d4b8ff; }
+.card-green  .card-title { color: #a8e8be; }
+.card-blue   .card-title { color: #a8d4f8; }
+.card-teal   .card-title { color: #7de8db; }
+
+.card-tag {
+margin-left: auto;
+font-family: ‘Space Mono’, monospace;
+font-size: 0.6rem;
+letter-spacing: 0.2em;
+padding: 3px 10px;
+border-radius: 20px;
+text-transform: uppercase;
+opacity: 0.7;
+}
+.card-purple .card-tag { background: rgba(155,111,212,0.2); color: #d4b8ff; border: 1px solid rgba(155,111,212,0.3); }
+.card-green  .card-tag { background: rgba(126,200,154,0.15); color: #a8e8be; border: 1px solid rgba(126,200,154,0.25); }
+.card-blue   .card-tag { background: rgba(122,184,245,0.15); color: #a8d4f8; border: 1px solid rgba(122,184,245,0.25); }
+.card-teal   .card-tag { background: rgba(42,157,143,0.15);  color: #7de8db; border: 1px solid rgba(42,157,143,0.3); }
+
+.rules-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.rule-item {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+padding: 10px 14px;
+border-radius: 10px;
+background: rgba(255,255,255,0.04);
+border-left: 2px solid transparent;
+transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+cursor: default;
+}
+
+.rule-item:hover {
+background: rgba(255,255,255,0.08);
+transform: translateX(4px);
+}
+
+.card-purple .rule-item:hover { border-left-color: var(–purple-light); }
+.card-green  .rule-item:hover { border-left-color: var(–green-light); }
+.card-blue   .rule-item:hover { border-left-color: var(–blue-light); }
+.card-teal   .rule-item:hover { border-left-color: var(–teal); }
+
+.rule-num {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+font-weight: 700;
+min-width: 22px;
+height: 22px;
+border-radius: 6px;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+margin-top: 1px;
+}
+.card-purple .rule-num { background: rgba(155,111,212,0.3); color: #d4b8ff; }
+.card-green  .rule-num { background: rgba(126,200,154,0.25); color: #a8e8be; }
+.card-blue   .rule-num { background: rgba(122,184,245,0.25); color: #a8d4f8; }
+.card-teal   .rule-num { background: rgba(42,157,143,0.25); color: #7de8db; }
+
+.rule-text {
+color: var(–beige);
+font-size: 0.95rem;
+line-height: 1.5;
+opacity: 0.9;
+}
+
+/* Sanctions card special style */
+.sanctions-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 10px;
+margin-top: 4px;
+}
+
+.sanction-step {
+padding: 12px 14px;
+border-radius: 12px;
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.08);
+text-align: center;
+position: relative;
+overflow: hidden;
+transition: transform 0.3s ease;
+}
+
+.sanction-step:hover { transform: scale(1.03); }
+
+.sanction-step::before {
+content: ‘’;
+position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.sanction-step:nth-child(1)::before { background: var(–green-light); }
+.sanction-step:nth-child(2)::before { background: var(–blue-light); }
+.sanction-step:nth-child(3)::before { background: #f0b429; }
+.sanction-step:nth-child(4)::before { background: #f07040; }
+.sanction-step:nth-child(5)::before { background: #e04040; }
+
+.sanction-emoji { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+.sanction-label {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–beige-dark);
+opacity: 0.7;
+display: block;
+margin-bottom: 4px;
+}
+.sanction-name {
+color: var(–beige-light);
+font-size: 0.85rem;
+font-weight: 600;
+}
+
+/* Arrow between sanctions */
+.arrow-row {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+margin: 8px 0 4px;
+flex-wrap: wrap;
+}
+
+.arrow-step {
+display: flex; align-items: center; gap: 6px;
+}
+
+.arrow-pill {
+padding: 5px 12px;
+border-radius: 20px;
+font-size: 0.78rem;
+color: var(–beige);
+white-space: nowrap;
+}
+.arrow-pill.s1 { background: rgba(126,200,154,0.2); border: 1px solid rgba(126,200,154,0.3); }
+.arrow-pill.s2 { background: rgba(122,184,245,0.2); border: 1px solid rgba(122,184,245,0.3); }
+.arrow-pill.s3 { background: rgba(240,180,41,0.2); border: 1px solid rgba(240,180,41,0.3); }
+.arrow-pill.s4 { background: rgba(240,112,64,0.2); border: 1px solid rgba(240,112,64,0.3); }
+.arrow-pill.s5 { background: rgba(224,64,64,0.2); border: 1px solid rgba(224,64,64,0.3); }
+.arrow-sep { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+
+/* Footer */
+.footer {
+text-align: center;
+margin-top: 56px;
+animation: card-in 0.8s cubic-bezier(.16,1,.3,1) 1.1s both;
+}
+
+.footer-seal {
+display: inline-block;
+width: 80px; height: 80px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(107,63,160,0.4) 0%, rgba(42,157,143,0.2) 100%);
+border: 1px solid rgba(155,111,212,0.4);
+display: flex; align-items: center; justify-content: center;
+font-size: 2rem;
+margin: 0 auto 16px;
+animation: seal-rotate 20s linear infinite;
+position: relative;
+}
+@keyframes seal-rotate {
+0% { box-shadow: 0 0 20px rgba(107,63,160,0.4), 0 0 40px rgba(42,157,143,0.2); }
+50% { box-shadow: 0 0 30px rgba(42,157,143,0.4), 0 0 60px rgba(107,63,160,0.3); }
+100% { box-shadow: 0 0 20px rgba(107,63,160,0.4), 0 0 40px rgba(42,157,143,0.2); }
+}
+
+.footer-text {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–beige-dark);
+opacity: 0.5;
+}
+
+/* Decorative card separator line */
+.card-sep {
+height: 1px;
+margin: 18px 0;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+.card-content { padding: 22px 20px 24px; }
+.sanctions-grid { grid-template-columns: 1fr 1fr; }
+.arrow-row { gap: 4px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- Animated background -->
+
+<div class="bg-layer"></div>
+
+<!-- Floating particles -->
+
+<div class="particles" id="particles"></div>
+
+<!-- Corner decorations -->
+
+<svg class="corner-decor corner-tl" width="280" height="280" viewBox="0 0 280 280" fill="none">
+  <path d="M10,10 Q80,10 80,80 Q80,150 140,150" stroke="#4a8c5c" stroke-width="1.5" fill="none"/>
+  <path d="M10,40 Q60,40 60,100 Q60,160 120,160" stroke="#6b3fa0" stroke-width="1" fill="none"/>
+  <circle cx="80" cy="80" r="4" fill="#7ec89a" opacity="0.6"/>
+  <circle cx="60" cy="100" r="3" fill="#9b6fd4" opacity="0.5"/>
+  <ellipse cx="140" cy="150" rx="8" ry="5" fill="#4a8c5c" opacity="0.4" transform="rotate(30 140 150)"/>
+  <ellipse cx="120" cy="160" rx="7" ry="4" fill="#6b3fa0" opacity="0.35" transform="rotate(-20 120 160)"/>
+  <!-- Stars -->
+  <circle cx="40" cy="20" r="1.5" fill="#f5ead8" opacity="0.6"/>
+  <circle cx="100" cy="15" r="1" fill="#7ab8f5" opacity="0.5"/>
+  <circle cx="20" cy="90" r="1.2" fill="#9b6fd4" opacity="0.4"/>
+  <path d="M30,120 Q70,100 90,140 Q110,180 60,200" stroke="#3a7abf" stroke-width="0.8" fill="none" opacity="0.5"/>
+  <path d="M5,180 Q30,160 50,190" stroke="#2a9d8f" stroke-width="0.8" fill="none" opacity="0.4"/>
+</svg>
+
+<svg class="corner-decor corner-br" width="280" height="280" viewBox="0 0 280 280" fill="none">
+  <path d="M10,10 Q80,10 80,80 Q80,150 140,150" stroke="#3a7abf" stroke-width="1.5" fill="none"/>
+  <path d="M10,40 Q60,40 60,100 Q60,160 120,160" stroke="#2a9d8f" stroke-width="1" fill="none"/>
+  <circle cx="80" cy="80" r="4" fill="#7ab8f5" opacity="0.6"/>
+  <circle cx="60" cy="100" r="3" fill="#2a9d8f" opacity="0.5"/>
+  <ellipse cx="140" cy="150" rx="8" ry="5" fill="#3a7abf" opacity="0.4" transform="rotate(30 140 150)"/>
+  <circle cx="40" cy="20" r="1.5" fill="#f5ead8" opacity="0.6"/>
+  <circle cx="100" cy="15" r="1" fill="#9b6fd4" opacity="0.5"/>
+</svg>
+
+<div class="container">
+
+  <!-- Header -->
+
+  <header class="header">
+    <div class="paradise-badge">✦ Servidor Oficial ✦</div>
+    <h1 class="main-title">Paradise Staff</h1>
+    <p class="subtitle">Código de Honor & Normas del Equipo</p>
+    <div class="header-divider"></div>
+  </header>
+
+  <!-- Cards -->
+
+  <div class="categories">
+
+```
+<!-- 1. Conducta General -->
+<div class="category-card card-purple">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">🌸</div>
+      <div>
+        <div class="card-title">Conducta General</div>
+      </div>
+      <span class="card-tag">I</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">Tratar a todos los jugadores con respeto y sin favoritismos, sin importar su rango o amistad.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">Mantener una actitud profesional en canales públicos. Los conflictos internos se discuten en privado.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">No abusar del poder: las herramientas de moderación son para la comunidad, no para beneficio propio.</span></li>
+      <li class="rule-item"><span class="rule-num">04</span><span class="rule-text">Estar activo. Si te ausentarás más de X días, notifícalo en el canal correspondiente.</span></li>
+      <li class="rule-item"><span class="rule-num">05</span><span class="rule-text">Fuera del servidor también representas al staff. Cuida tu comportamiento en redes y en otros servidores.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. Uso de Permisos -->
+<div class="category-card card-blue">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">⚔️</div>
+      <div>
+        <div class="card-title">Uso de Permisos</div>
+      </div>
+      <span class="card-tag">II</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">No usar comandos de staff (fly, vanish, give, tp…) para ventaja personal en el juego.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">No revelar información privada de jugadores: IPs, datos personales ni reportes confidenciales.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">No ingresar a propiedades privadas de jugadores sin motivo legítimo de moderación.</span></li>
+      <li class="rule-item"><span class="rule-num">04</span><span class="rule-text">Ante la duda sobre si aplicar una sanción, consulta con un superior antes de actuar.</span></li>
+      <li class="rule-item"><span class="rule-num">05</span><span class="rule-text">No hacer spoilers de eventos o actualizaciones futuras a jugadores del servidor.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 3. Moderación & Sanciones -->
+<div class="category-card card-teal">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">⚖️</div>
+      <div>
+        <div class="card-title">Moderación & Sanciones</div>
+      </div>
+      <span class="card-tag">III</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">Seguir siempre el protocolo de sanciones establecido. Ver flujo oficial abajo.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">Registrar todas las sanciones en el sistema designado con su motivo detallado.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">No desbanear ni reducir sanciones de otro moderador sin consenso del equipo.</span></li>
+      <li class="rule-item"><span class="rule-num">04</span><span class="rule-text">Prohibido sancionar a alguien por motivos personales o rencillas.</span></li>
+    </ul>
+    <div class="card-sep"></div>
+    <div class="arrow-row">
+      <span class="arrow-pill s1">⚠️ Advertencia</span>
+      <span class="arrow-sep">›</span>
+      <span class="arrow-pill s2">🔇 Mute</span>
+      <span class="arrow-sep">›</span>
+      <span class="arrow-pill s3">👟 Kick</span>
+      <span class="arrow-sep">›</span>
+      <span class="arrow-pill s4">⏳ Ban Temp.</span>
+      <span class="arrow-sep">›</span>
+      <span class="arrow-pill s5">🔨 Ban Perm.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Comunicación Interna -->
+<div class="category-card card-purple">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">🌿</div>
+      <div>
+        <div class="card-title">Comunicación Interna</div>
+      </div>
+      <span class="card-tag">IV</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">Todo lo hablado en canales de staff es estrictamente confidencial. No se filtra al exterior.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">Expresar desacuerdos con respeto. Nada de drama ni conflictos internos visibles.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">Participar activamente en reuniones y votaciones del equipo.</span></li>
+      <li class="rule-item"><span class="rule-num">04</span><span class="rule-text">Si cometes un error al sancionar a alguien, repórtalo tú mismo. La honestidad es valorada.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5. Conflicto de Interés -->
+<div class="category-card card-green">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">🌺</div>
+      <div>
+        <div class="card-title">Conflicto de Interés</div>
+      </div>
+      <span class="card-tag">V</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">Si un familiar o amigo cercano rompe una regla, otro miembro del staff debe encargarse del caso.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">No recomendar amigos para el staff por favoritismo. Solo se acepta por mérito demostrado.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">No pedir ascensos de rango directamente. Quien lo pide, no lo consigue.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. Período de Prueba -->
+<div class="category-card card-blue">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">🌱</div>
+      <div>
+        <div class="card-title">Período de Prueba</div>
+      </div>
+      <span class="card-tag">VI</span>
+    </div>
+    <ul class="rules-list">
+      <li class="rule-item"><span class="rule-num">01</span><span class="rule-text">Los nuevos staffs tienen un período de prueba en el que serán evaluados antes de recibir permisos completos.</span></li>
+      <li class="rule-item"><span class="rule-num">02</span><span class="rule-text">Durante la prueba, sus acciones serán monitoreadas por staffs de rango superior.</span></li>
+      <li class="rule-item"><span class="rule-num">03</span><span class="rule-text">El incumplimiento de normas durante la prueba resulta en descarte inmediato del equipo.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 7. Consecuencias -->
+<div class="category-card card-teal">
+  <div class="card-bg"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="card-icon">⚡</div>
+      <div>
+        <div class="card-title">Consecuencias por Incumplimiento</div>
+      </div>
+      <span class="card-tag">VII</span>
+    </div>
+    <div class="sanctions-grid">
+      <div class="sanction-step">
+        <span class="sanction-emoji">💬</span>
+        <span class="sanction-label">Paso 1</span>
+        <span class="sanction-name">Advertencia verbal</span>
+      </div>
+      <div class="sanction-step">
+        <span class="sanction-emoji">📋</span>
+        <span class="sanction-label">Paso 2</span>
+        <span class="sanction-name">Advertencia formal</span>
+      </div>
+      <div class="sanction-step">
+        <span class="sanction-emoji">📉</span>
+        <span class="sanction-label">Paso 3</span>
+        <span class="sanction-name">Degradación de rango</span>
+      </div>
+      <div class="sanction-step">
+        <span class="sanction-emoji">🚪</span>
+        <span class="sanction-label">Paso 4</span>
+        <span class="sanction-name">Expulsión del staff</span>
+      </div>
+    </div>
+    <div class="card-sep"></div>
+    <div class="rule-item" style="background:rgba(224,64,64,0.08); border-left:2px solid rgba(224,64,64,0.5);">
+      <span style="font-size:1.1rem;">🔥</span>
+      <span class="rule-text" style="color:#ffb3a7;">Faltas graves (abuso de poder, filtrar información, corrupción) → sanción inmediata sin pasos previos.</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- Footer -->
+
+  <footer class="footer">
+    <div class="footer-seal">🏝️</div>
+    <p class="footer-text">Paradise · Staff · Código Oficial · Todos los derechos reservados</p>
+  </footer>
+
+</div>
+
+<script>
+  // Generate floating particles
+  const container = document.getElementById('particles');
+  const colors = [
+    'rgba(155,111,212,0.7)', 'rgba(126,200,154,0.7)',
+    'rgba(122,184,245,0.7)', 'rgba(42,157,143,0.7)',
+    'rgba(245,234,216,0.5)'
+  ];
+  const shapes = ['circle', 'star', 'diamond'];
+
+  for (let i = 0; i < 40; i++) {
+    const el = document.createElement('div');
+    const size = Math.random() * 5 + 2;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const left = Math.random() * 100;
+    const duration = Math.random() * 15 + 10;
+    const delay = Math.random() * 20;
+    const type = shapes[Math.floor(Math.random() * shapes.length)];
+
+    el.className = 'particle';
+    el.style.cssText = `
+      left: ${left}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      border-radius: ${type === 'circle' ? '50%' : type === 'diamond' ? '2px' : '50%'};
+      transform: ${type === 'diamond' ? 'rotate(45deg)' : 'none'};
+      box-shadow: 0 0 ${size * 2}px ${color};
+    `;
+    container.appendChild(el);
+  }
+</script>
+
+</body>
+</html>
